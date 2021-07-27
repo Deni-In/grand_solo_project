@@ -31,6 +31,7 @@ app.use(
     extended: true,
   })
 );
+app.use(require("./routes/index"));
 
 app.listen(process.env.PORT, () => {
   try {
