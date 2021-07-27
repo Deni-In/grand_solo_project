@@ -1,8 +1,16 @@
 import React from 'react';
+import {Container, CssBaseline} from "@material-ui/core";
+import Routes from "./Routes";
+import Header from "./Header";
 
 function App(props) {
   return (
-    <div></div>
+    <Container maxWidth={"md"}>
+        <CssBaseline>
+            <Header />
+            <Routes />
+        </CssBaseline>
+    </Container>
   );
 }
 
