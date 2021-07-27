@@ -36,6 +36,10 @@ const schoolSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    term: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );
