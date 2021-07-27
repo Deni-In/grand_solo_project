@@ -5,6 +5,7 @@ const schoolSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     category: {
       type: mongoose.SchemaTypes.ObjectId,
@@ -17,16 +18,28 @@ const schoolSchema = new mongoose.Schema(
     },
     rating: {
       type: Number,
-      required: true
+      required: true,
     },
     onlineOption: {
       type: Boolean,
-      required: true
+      required: true,
     },
     price: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
+
+const School = mongoose.model("School", schoolSchema);
+
+module.exports = School;

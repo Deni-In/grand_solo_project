@@ -7,11 +7,21 @@ const morgan = require("morgan");
 
 const app = express();
 
-mongoose.connect(process.env.MONGO, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-});
+mongoose.connect(
+  process.env.MONGO,
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  },
+  () => {
+    try {
+      console.log("Database connected...");
+    } catch (e) {
+      console.log("Error:" + e.message);
+    }
+  }
+);
 
 app.use(express.json());
 app.use(morgan("dev"));
