@@ -1,15 +1,17 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import AllSchoolsPage from './pages/AllSchoolsPage';
+import SingleSchoolPage from './pages/SingleSchoolPage';
 
 function Routes(props) {
     return (
         <BrowserRouter>
             <Switch>
                 <Route path='/' exact>
-                    AllSchools
+                    <AllSchoolsPage/>
                 </Route>
                 <Route path='/school/:id'>
-                    OneSchool
+                    <SingleSchoolPage/>
                 </Route>
                 <Route path='/category/:id'>
                     Category

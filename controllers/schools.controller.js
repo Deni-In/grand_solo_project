@@ -3,7 +3,7 @@ const School = require("../models/School.model");
 module.exports.schoolsController = {
   getAll: async (req, res) => {
     try {
-      const schools = await School.find();
+      const schools = await School.find().populate('category');
 
       return res.json(schools);
     } catch (e) {
@@ -17,7 +17,7 @@ module.exports.schoolsController = {
     const { id } = req.params;
 
     try {
-      const school = await School.findById(id);
+      const school = await School.findById(id).populate('category');
 
       if (!school) {
         return res.status(404).json({

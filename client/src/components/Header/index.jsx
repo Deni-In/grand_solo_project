@@ -1,6 +1,7 @@
 import React from 'react';
-import {AppBar, IconButton, makeStyles, Toolbar} from "@material-ui/core"
+import { AppBar, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
+import Categories from '../Categories';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,16 +12,34 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function Header() {
+function Header( {isOpen}) {
     const classes = useStyles();
+
+    if (isOpen) {
+        return (
+            <Categories/>
+        )
+
+    }
+
+    const handleOpenCategories = () => {
+        if (isOpen) {
+            return isOpen = false
+        } else {
+            return isOpen = true
+        }
+    }
 
     return (
         <>
-        <AppBar position="static">
+        <AppBar  position="static" style={{background: 'black'}}>
             <Toolbar variant='dense'>
-                <IconButton edge='start' className={classes.menuButton}  color='inherit' aria-label='menu'>
+                <IconButton onChange={handleOpenCategories} edge='start' className={classes.menuButton}  color='inherit' aria-label='menu'>
                     <MenuIcon />
                 </IconButton>
+                <Typography variant='h6' color='inherit'>
+                    Сравни
+                </Typography>
             </Toolbar>
         </AppBar>
             <Toolbar/>
