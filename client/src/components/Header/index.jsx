@@ -15,8 +15,8 @@ import {
   selectAllCategories,
 } from "../../redux/features/categories";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { Router } from "@material-ui/icons";
+import {Link} from "react-router-dom";
+import { Router } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +44,7 @@ function Header({ isOpen }) {
 
   useEffect(() => {
     dispatch(loadAllCategories());
-  }, [dispatch]);
+  }, [dispatch,]);
 
   return (
     <>
@@ -69,7 +69,9 @@ function Header({ isOpen }) {
             {categories.map((category) => {
               return (
                 <MenuItem onClick={handleClose}>
-                    <p>{category.name}</p>
+                    <Link to={`/category/${category._id}`} exact>
+                      {category.name}
+                    </Link>
                 </MenuItem>
               );
             })}

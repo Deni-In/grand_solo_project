@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-function Schools(props) {
+function Schools() {
   const schools = useSelector(selectAllSchools);
 
   const classes = useStyles();
@@ -28,7 +28,7 @@ function Schools(props) {
             name={school.name}
             id={school._id}
             logo={school.logo}
-            category={school.category}
+            category={school.category._id}
           />
         );
       })}

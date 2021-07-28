@@ -6,7 +6,7 @@ import {
 } from "../../redux/features/schools";
 import { Helmet } from "react-helmet";
 import { CircularProgress } from "@material-ui/core";
-import Schools from '../Schools';
+import Schools from "../Schools";
 
 function AllSchoolsPage(props) {
   const dispatch = useDispatch();

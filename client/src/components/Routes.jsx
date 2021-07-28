@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import AllSchoolsPage from './pages/AllSchoolsPage';
 import SingleSchoolPage from './pages/SingleSchoolPage';
+import SchoolsByCategoryPage from "./pages/SchoolsByCategoryPage";
 
 function Routes(props) {
     return (
@@ -13,8 +14,8 @@ function Routes(props) {
                 <Route path='/school/:id'>
                     <SingleSchoolPage/>
                 </Route>
-                <Route path='/category/:id'>
-                    Category
+                <Route path='/category/:categoryId'>
+                    <SchoolsByCategoryPage/>
                 </Route>
                 <Redirect to='/' />
             </Switch>

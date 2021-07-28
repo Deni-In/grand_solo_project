@@ -38,7 +38,7 @@ function School({ id, name, category, logo }) {
   return (
     <Box classes={{ root: classes.root }}>
       <Card>
-        <div className={{ root: classes.imgDiv }}>
+        <div>
           <CardMedia
             component={"img"}
             classes={{ img: classes.media }}
