@@ -30,8 +30,6 @@ const schools = (state = initialState, action) => {
 
 export default schools;
 
-//thunks
-
 export const loadAllSchools = () => {
   return async (dispatch) => {
     dispatch({ type: "schools/fetch/pending" });
@@ -55,23 +53,23 @@ export const loadSingleSchoolById = (id) => {
       return;
     }
 
-    dispatch({ type: 'schools/fetch-single/pending'});
+    dispatch({ type: "schools/fetch-single/pending" });
 
     try {
       const resp = await fetch(`/school/${id}`);
       const school = await resp.json();
 
-      dispatch({ type: 'schools/fetch-single/fulfilled', payload: school})
+      dispatch({ type: "schools/fetch-single/fulfilled", payload: school });
     } catch (e) {
-      dispatch({ type: 'schools/fetch-single/rejected', error: e.toString()})
+      dispatch({ type: "schools/fetch-single/rejected", error: e.toString() });
     }
-  }
-}
+  };
+};
 
 export const selectSchoolsLoading = (state) => state.schools.loading;
 
 export const selectAllSchools = (state) => state.schools.items;
 
 export const selectSingleSchool = (schoolId) => (state) => {
-  return state.schools.items.find((school) => school._id === schoolId)
-}
+  return state.schools.items.find((school) => school._id === schoolId);
+};

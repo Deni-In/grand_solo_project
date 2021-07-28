@@ -9,7 +9,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import { useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => {
     media: {
       maxWidth: "100%",
       maxHeight: 250,
-      backgroundSize: '100%'
+      backgroundSize: "100%",
     },
   };
 });
@@ -40,7 +40,7 @@ function School({ id, name, category, logo }) {
       <Card>
         <div className={{ root: classes.imgDiv }}>
           <CardMedia
-            component={'img'}
+            component={"img"}
             classes={{ img: classes.media }}
             image={logo}
             title={name}
