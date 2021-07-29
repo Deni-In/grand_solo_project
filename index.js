@@ -18,7 +18,7 @@ mongoose.connect(
     try {
       console.log("Database connected...");
     } catch (e) {
-      console.log(`Error:${  e.message}`);
+      console.log(`Error:${e.message}`);
     }
   }
 );
@@ -37,6 +37,6 @@ app.listen(process.env.PORT, () => {
   try {
     console.log("Server initialised...");
   } catch (e) {
-    console.log(`Error:${  e.message}`);
+    console.log(`Error:${e.message}`);
   }
 });

@@ -44,7 +44,7 @@ function School({ id, name, category, logo }) {
             classes={{ img: classes.media }}
             image={logo}
             title={name}
-            style={{width: 300, height: 200}}
+            style={{ width: 300, height: 200 }}
           />
         </div>
         <CardContent>

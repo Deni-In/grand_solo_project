@@ -22,6 +22,18 @@ const categories = (state = initialState, action) => {
                 loading: false,
                 error: action.error
             }
+        case 'category/remove/pending':
+            return {
+                ...state,
+                loading: true
+            }
+        case 'category/remove/fulfilled':
+            return {
+                ...state,
+                items: state.items.filter((category) => {
+                    return category._id !== action.payload
+                })
+            }
         default:
             return state
     }
@@ -40,6 +52,21 @@ export const loadAllCategories = () => {
             dispatch({ type: 'categories/fetch/fulfilled', payload: json});
         } catch (e) {
             dispatch({ type: 'categories/fetch/rejected', error: e.toString()})
+        }
+    }
+}
+
+export const removeCategory = (categoryId) => {
+    return async (dispatch) => {
+        dispatch({ type: 'category/remove/pending'})
+
+        try {
+            await fetch(`category/${categoryId}`, {
+                method: 'DELETE'
+            })
+            await dispatch({ type: 'category/remove/fulfilled', payload: categoryId})
+        } catch (e) {
+            await dispatch({ type: 'category/remove/rejected'})
         }
     }
 }

@@ -1,7 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadAllCategories, selectAllCategories } from "../../redux/features/categories";
-import { loadAllSchools, removeSchool, selectAllSchools } from "../../redux/features/schools";
+import {
+  loadAllCategories,
+  removeCategory,
+  selectAllCategories,
+} from "../../redux/features/categories";
+import {
+  loadAllSchools,
+  removeSchool,
+  selectAllSchools,
+} from "../../redux/features/schools";
 import {
   Button,
   makeStyles,
@@ -14,37 +22,41 @@ import {
   TableRow,
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) =>({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
-}))
+}));
 
 function Admin(props) {
   const dispatch = useDispatch();
 
   const schools = useSelector(selectAllSchools);
 
-  const categories = useSelector(selectAllCategories)
+  const categories = useSelector(selectAllCategories);
 
   const classes = useStyles();
 
-  const handleRemove = (id) => {
-    dispatch(removeSchool(id))
-  }
+  const handleRemoveSchool = (id) => {
+    dispatch(removeSchool(id));
+  };
+
+  const handleRemoveCategory = (categoryId) => {
+    dispatch(removeCategory(categoryId));
+  };
 
   useEffect(() => {
     dispatch(loadAllSchools());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(loadAllCategories())
-  }, [dispatch])
+    dispatch(loadAllCategories());
+  }, [dispatch]);
 
   return (
     <TableContainer component={Paper}>
@@ -54,19 +66,22 @@ function Admin(props) {
             <TableCell>Категории</TableCell>
           </TableRow>
           <TableBody>
-          {categories.map((category) => (
-            <TableRow key={category.name}>
-              <TableCell>{category.name}</TableCell>
-              <TableCell align="right">
-                <Button>
-                  Изменить
-                </Button>
-                <Button>
-                  Удалить
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+            {categories.map((category) => (
+              <TableRow key={category.name}>
+                <TableCell>{category.name}</TableCell>
+                <TableCell>ID: {category._id}</TableCell>
+                <TableCell align="right">
+                  <Button>Изменить</Button>
+                  <Button
+                    onClick={() => {
+                      handleRemoveCategory(category._id);
+                    }}
+                  >
+                    Удалить
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
           <TableRow>
             <TableCell>Школа</TableCell>
@@ -102,11 +117,12 @@ function Admin(props) {
               <TableCell align="right">{school.createdAt}</TableCell>
               <TableCell align="right">{school.updatedAt}</TableCell>
               <TableCell align="right">
-                <Button>
-                  Изменить
-                </Button>
-                <Button onClick={() => {handleRemove(school._id)
-                }}>
+                <Button>Изменить</Button>
+                <Button
+                  onClick={() => {
+                    handleRemoveSchool(school._id);
+                  }}
+                >
                   Удалить
                 </Button>
               </TableCell>

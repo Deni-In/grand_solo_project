@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
-  AppBar, Button,
+  AppBar,
+  Button,
   IconButton,
   makeStyles,
   Menu,
@@ -23,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  categoryBtn : {
-    textDecoration: 'none',
-    color: 'black'
-  }
+  categoryBtn: {
+    textDecoration: "none",
+    color: "black",
+  },
 }));
 
 function Header({ isOpen }) {
@@ -71,25 +72,52 @@ function Header({ isOpen }) {
             {categories.map((category) => {
               return (
                 <MenuItem onClick={handleClose}>
-                    <NavLink className={classes.categoryBtn} to={`/category/${category._id}`}>
-                      {category.name.toUpperCase()}
-                    </NavLink>
+                  <NavLink
+                    className={classes.categoryBtn}
+                    to={`/category/${category._id}`}
+                  >
+                    {category.name.toUpperCase()}
+                  </NavLink>
                 </MenuItem>
               );
             })}
           </Menu>
-          <Button >
-            <NavLink to='/' style={{ textDecoration: 'none', color: 'white', fontSize: 17, marginTop: 1}}>
+          <Button>
+            <NavLink
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: 17,
+                marginTop: 1,
+              }}
+            >
               Главная
             </NavLink>
           </Button>
-          <Button >
-            <NavLink to='/admin' style={{ textDecoration: 'none', color: 'white', fontSize: 17, marginTop: 1}}>
+          <Button>
+            <NavLink
+              to="/admin"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: 17,
+                marginTop: 1,
+              }}
+            >
               Сравнение
             </NavLink>
           </Button>
-          <Button >
-            <NavLink to='/admin' style={{ textDecoration: 'none', color: 'white', fontSize: 17, marginTop: 1}}>
+          <Button>
+            <NavLink
+              to="/admin"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: 17,
+                marginTop: 1,
+              }}
+            >
               Админ
             </NavLink>
           </Button>
