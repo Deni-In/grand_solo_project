@@ -4,6 +4,7 @@ import AllSchoolsPage from "./pages/AllSchoolsPage";
 import SingleSchoolPage from "./pages/SingleSchoolPage";
 import SchoolsByCategoryPage from "./pages/SchoolsByCategoryPage";
 import Header from './Header';
+import Admin from './pages/Admin';
 
 
 function Routes(props) {
@@ -18,6 +19,9 @@ function Routes(props) {
         <Route path="/category/:categoryId">
           <SchoolsByCategoryPage />
         </Route>
+          <Route path='/admin'>
+            <Admin/>
+          </Route>
         <Redirect to="/" />
       </Switch>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {
-  AppBar,
+  AppBar, Button,
   IconButton,
   makeStyles,
   Menu,
@@ -78,9 +78,21 @@ function Header({ isOpen }) {
               );
             })}
           </Menu>
-          <Typography variant="h6" color="inherit">
-            Сравни
-          </Typography>
+          <Button >
+            <NavLink to='/' style={{ textDecoration: 'none', color: 'white', fontSize: 17, marginTop: 1}}>
+              Главная
+            </NavLink>
+          </Button>
+          <Button >
+            <NavLink to='/admin' style={{ textDecoration: 'none', color: 'white', fontSize: 17, marginTop: 1}}>
+              Сравнение
+            </NavLink>
+          </Button>
+          <Button >
+            <NavLink to='/admin' style={{ textDecoration: 'none', color: 'white', fontSize: 17, marginTop: 1}}>
+              Админ
+            </NavLink>
+          </Button>
         </Toolbar>
       </AppBar>
       <Toolbar />

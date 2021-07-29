@@ -39,6 +39,18 @@ const schools = (state = initialState, action) => {
         loading: false,
         error: action.error,
       };
+    case "school/remove-by-id/pending":
+      return {
+        ...state,
+        loading: true
+      }
+    case "school/remove-by-id/fulfilled":
+      return {
+        ...state,
+        items: state.items.filter((school) => {
+          return school._id !== action.payload
+        })
+      }
     default:
       return state;
   }
@@ -83,8 +95,8 @@ export const loadSingleSchoolById = (id) => {
 };
 
 export const loadSchoolsByCategory = (categoryId) => {
-  return async (dispatch, getState) => {
-    const { schools } = getState();
+  return async (dispatch) => {
+
 
     dispatch({ type: "schools/fetch-by-category/pending" });
 
@@ -104,6 +116,24 @@ export const loadSchoolsByCategory = (categoryId) => {
     }
   };
 };
+
+export const removeSchool = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: 'school/remove-by-id/pending'})
+
+    try {
+      await fetch(`/school/${id}`, {
+        method: 'DELETE'
+      })
+      await dispatch({ type: 'school/remove-by-id/fulfilled', payload: id})
+        } catch (e) {
+      await dispatch({ type: 'school/remove-by-id/rejected',
+      })
+    }
+  }
+
+
+}
 
 export const selectSchoolsLoading = (state) => state.schools.loading;
 
