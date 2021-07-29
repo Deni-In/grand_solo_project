@@ -6,7 +6,7 @@ import { store } from "./redux/configStore";
 import { BrowserRouter, Router } from "react-router-dom";
 
 ReactDOM.render(
-  <BrowserRouter forceRefresh={true}>
+  <BrowserRouter>
     <React.StrictMode>
       <Provider store={store}>
         <App />
