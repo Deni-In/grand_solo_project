@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
-import { selectAllSchools } from "../../redux/features/schools";
-import School from "../Schools/School";
-import Schools from "../Schools";
+import {
+  loadSchoolsByCategory,
+  selectAllSchools,
+  selectSchoolsLoading,
+} from "../../redux/features/schools";
+import { CircularProgress } from "@material-ui/core";
+import Schools from '../Schools';
 
 function SchoolsByCategoryPage(props) {
+  const dispatch = useDispatch();
+
   const { categoryId } = useParams();
 
-  const allSchools = useSelector(selectAllSchools);
+  const schools = useSelector(selectAllSchools);
 
-  const schools = allSchools.filter((school) => {
-    return school.category === Number(categoryId);
-  });
+  const loading = useSelector(selectSchoolsLoading);
+
+  useEffect(() => {
+    dispatch(loadSchoolsByCategory(categoryId));
+  }, [dispatch, categoryId]);
+
   return (
     <>
       <Helmet>
         <title>Школы категории</title>
       </Helmet>
-      {schools.map((school) => {
-        return (
-          <Schools category={categoryId} />
-        );
-      })}
+      {loading ? (
+        <CircularProgress />
+      ) : <Schools/>}
     </>
   );
 }

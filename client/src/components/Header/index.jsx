@@ -9,14 +9,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import Categories from "../Categories";
 import {
   loadAllCategories,
   selectAllCategories,
 } from "../../redux/features/categories";
 import { useDispatch, useSelector } from "react-redux";
-import {Link} from "react-router-dom";
-import { Router } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  categoryBtn : {
+    textDecoration: 'none',
+    color: 'black'
+  }
 }));
 
 function Header({ isOpen }) {
@@ -44,7 +46,7 @@ function Header({ isOpen }) {
 
   useEffect(() => {
     dispatch(loadAllCategories());
-  }, [dispatch,]);
+  }, [dispatch]);
 
   return (
     <>
@@ -69,9 +71,9 @@ function Header({ isOpen }) {
             {categories.map((category) => {
               return (
                 <MenuItem onClick={handleClose}>
-                    <Link to={`/category/${category._id}`} exact>
-                      {category.name}
-                    </Link>
+                    <NavLink className={classes.categoryBtn} to={`/category/${category._id}`}>
+                      {category.name.toUpperCase()}
+                    </NavLink>
                 </MenuItem>
               );
             })}
