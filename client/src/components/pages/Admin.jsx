@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadAllCategories } from "../../redux/features/categories";
+import { loadAllCategories, selectAllCategories } from "../../redux/features/categories";
 import { loadAllSchools, removeSchool, selectAllSchools } from "../../redux/features/schools";
 import {
   Button,
@@ -30,6 +30,8 @@ function Admin(props) {
 
   const schools = useSelector(selectAllSchools);
 
+  const categories = useSelector(selectAllCategories)
+
   const classes = useStyles();
 
   const handleRemove = (id) => {
@@ -39,12 +41,35 @@ function Admin(props) {
   useEffect(() => {
     dispatch(loadAllSchools());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadAllCategories())
+  }, [dispatch])
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Название</TableCell>
+            <TableCell>Категории</TableCell>
+          </TableRow>
+          <TableBody>
+          {categories.map((category) => (
+            <TableRow key={category.name}>
+              <TableCell>{category.name}</TableCell>
+              <TableCell align="right">
+                <Button>
+                  Изменить
+                </Button>
+                <Button>
+                  Удалить
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+          </TableBody>
+          <TableRow>
+            <TableCell>Школа</TableCell>
             <TableCell align="right">Категория</TableCell>
             <TableCell align="right">Лого</TableCell>
             <TableCell align="right">Рейтинг</TableCell>
