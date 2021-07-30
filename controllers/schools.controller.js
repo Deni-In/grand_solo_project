@@ -130,7 +130,9 @@ module.exports.schoolsController = {
         term,
       });
 
-      const schoolToRes = await School.findById(school._id).populate('category')
+      const schoolToRes = await School.findById(school._id).populate(
+        "category"
+      );
 
       return res.json(schoolToRes);
     } catch (e) {
