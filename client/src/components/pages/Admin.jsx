@@ -35,24 +35,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Admin(props) {
+function Admin() {
   const dispatch = useDispatch();
-
   const schools = useSelector(selectAllSchools);
-
   const categories = useSelector(selectAllCategories);
-
   const classes = useStyles();
-
-  const handleRemoveSchool = (id) => {
-    dispatch(removeSchool(id));
-  };
-
-  const handleRemoveCategory = (categoryId) => {
-    dispatch(removeCategory(categoryId));
-  };
-
-  const [name, setName] = useState("");
 
   useEffect(() => {
     dispatch(loadAllSchools());
@@ -61,16 +48,22 @@ function Admin(props) {
   useEffect(() => {
     dispatch(loadAllCategories());
   }, [dispatch]);
-
-  const saveName = (e) => {
-    setName(e.target.value);
+//======================================================
+  const handleRemoveSchool = (id) => {
+    dispatch(removeSchool(id));
   };
+  const handleRemoveCategory = (categoryId) => {
+    dispatch(removeCategory(categoryId));
+  };
+  const [categoryName, setCategoryName] = useState("");
+  const saveCategoryName = (e) => {
+    setCategoryName(e.target.value)};
 
   const handleAddName = () => {
-    dispatch(addCategory({ name }));
+    dispatch(addCategory(categoryName));
+    setCategoryName("")};
 
-    setName("");
-  };
+  const [schoolName, setSchoolName] = useState('')
 
   return (
     <TableContainer component={Paper}>
@@ -85,8 +78,8 @@ function Admin(props) {
                 <TextField
                   placeholder="название категории"
                   label="название категории"
-                  onChange={saveName}
-                  value={name}
+                  onChange={saveCategoryName}
+                  value={categoryName}
                 />
               </TableCell>
               <TableCell>
@@ -126,6 +119,18 @@ function Admin(props) {
           </TableRow>
         </TableHead>
         <TableBody>
+          <TableRow>
+            <TableCell>
+              <TextField
+                placeholder="название школы"
+                label="название школы"
+
+              />
+            </TableCell>
+            <TableCell>
+              <Button onClick={handleAddName}>Добавить</Button>
+            </TableCell>
+          </TableRow>
           {schools.map((school) => (
             <TableRow key={school.name}>
               <TableCell component="th" scope="row">

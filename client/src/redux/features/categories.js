@@ -43,9 +43,9 @@ const categories = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        items: [...state, action.payload],
+        items: [...state.items, action.payload],
       };
-    case "categories/add/rejected":
+    case "category/add/rejected":
       return {
         ...state,
         loading: false,
@@ -91,14 +91,16 @@ export const removeCategory = (categoryId) => {
   };
 };
 
-export const addCategory = (name) => {
+export const addCategory = (categoryName) => {
   return async (dispatch) => {
     dispatch({ type: "category/add/pending" });
 
     try {
       const response = await fetch("/category", {
         method: "POST",
-        body: JSON.stringify(name),
+        body: JSON.stringify({
+          name: categoryName,
+        }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -107,7 +109,7 @@ export const addCategory = (name) => {
 
       dispatch({ type: "category/add/fulfilled", payload: data });
     } catch (e) {
-      dispatch({ type: "categories/add/rejected", error: e.toString() });
+      dispatch({ type: "category/add/rejected", error: e.toString() });
     }
   };
 };
