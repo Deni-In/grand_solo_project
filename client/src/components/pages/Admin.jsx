@@ -7,6 +7,7 @@ import {
   selectAllCategories,
 } from "../../redux/features/categories";
 import {
+  addSchool,
   loadAllSchools,
   removeSchool,
   selectAllSchools,
@@ -55,6 +56,9 @@ function Admin() {
   const handleRemoveCategory = (categoryId) => {
     dispatch(removeCategory(categoryId));
   };
+
+  //======================================================
+
   const [categoryName, setCategoryName] = useState("");
   const saveCategoryName = (e) => {
     setCategoryName(e.target.value)};
@@ -63,7 +67,62 @@ function Admin() {
     dispatch(addCategory(categoryName));
     setCategoryName("")};
 
+  //======================================================
+
   const [schoolName, setSchoolName] = useState('')
+  const saveSchoolName = (e) => {
+    setSchoolName(e.target.value)}
+
+  const [schoolCategory, setSchoolCategory] = useState('')
+  const saveSchoolCategory = (e) => {
+    setSchoolCategory(e.target.value)}
+
+  const [schoolLogo, setSchoolLogo] = useState('')
+  const saveSchoolLogo = (e) => {
+    setSchoolLogo(e.target.value)}
+
+  const [schoolRating, setSchoolRating] = useState('')
+  const saveSchoolRating = (e) => {
+    setSchoolRating(e.target.value)}
+
+  const [schoolOnline, setSchoolOnline] = useState('')
+  const saveSchoolOnline = (e) => {
+    setSchoolOnline(e.target.value)
+  }
+
+  const [schoolPrice, setSchoolPrice] = useState('')
+  const saveSchoolPrice = (e) => {
+    setSchoolPrice(e.target.value)
+  }
+
+  const [schoolDescription, setSchoolDescription] = useState('')
+  const saveSchoolDescription = (e) => {
+    setSchoolDescription(e.target.value)
+  }
+
+  const [schoolLocation, setSchoolLocation] = useState('')
+  const saveSchoolLocation = (e) => {
+    setSchoolLocation(e.target.value)
+  }
+
+  const [schoolTerm, setSchoolTerm] = useState('')
+  const saveSchoolTerm = (e) => {
+    setSchoolTerm(e.target.value)
+  }
+
+  const handleAddSchool = () => {
+    dispatch(addSchool({
+      name: schoolName,
+      category: schoolCategory,
+      logo: schoolLogo,
+      rating: schoolRating,
+      onlineOption: schoolOnline,
+      price: schoolPrice,
+      description: schoolDescription,
+      location: schoolLocation,
+      term: schoolTerm
+    }) )
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -124,11 +183,82 @@ function Admin() {
               <TextField
                 placeholder="название школы"
                 label="название школы"
-
+                onChange={saveSchoolName}
+                value={schoolName}
               />
             </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="ID категории"
+                label="ID категории"
+                onChange={saveSchoolCategory}
+                value={schoolCategory}
+              />
+            </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="ссылка на лого"
+                label="ссылка на лого"
+                onChange={saveSchoolLogo}
+                value={schoolLogo}
+              />
+            </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="1-10"
+                label="1-10"
+                onChange={saveSchoolRating}
+                value={schoolRating}
+              />
+            </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="true/false"
+                label="true/false"
+                onChange={saveSchoolOnline}
+                value={schoolOnline}
+              />
+            </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="цена Р"
+                label="цена Р"
+                onChange={saveSchoolPrice}
+                value={schoolPrice}
+              />
+            </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="описание"
+                label="описание"
+                onChange={saveSchoolDescription}
+                value={schoolDescription}
+              />
+            </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="город"
+                label="город"
+                onChange={saveSchoolLocation}
+                value={schoolLocation}
+              />
+            </TableCell>
+            <TableCell align="right">
+              <TextField
+                placeholder="срок(месяцев)"
+                label="срок(месяцев)"
+                onChange={saveSchoolTerm}
+                value={schoolTerm}
+              />
+            </TableCell>
+            <TableCell align="right">
+              {' '}
+            </TableCell>
+            <TableCell align="right">
+              {' '}
+            </TableCell>
             <TableCell>
-              <Button onClick={handleAddName}>Добавить</Button>
+              <Button onClick={handleAddSchool}>Добавить</Button>
             </TableCell>
           </TableRow>
           {schools.map((school) => (

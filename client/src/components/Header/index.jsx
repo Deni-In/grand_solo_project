@@ -76,7 +76,7 @@ function Header({ isOpen }) {
                     className={classes.categoryBtn}
                     to={`/category/${category._id}`}
                   >
-                    {category.name.toUpperCase()}
+                    {category.name}
                   </NavLink>
                 </MenuItem>
               );

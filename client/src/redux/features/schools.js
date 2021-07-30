@@ -51,6 +51,23 @@ const schools = (state = initialState, action) => {
           return school._id !== action.payload;
         }),
       };
+    case 'school/add/pending':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'school/add/fulfilled':
+      return {
+        ...state,
+        loading: false,
+        items: [ ...state.items, action.payload]
+      }
+    case 'school/add/rejected':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
     default:
       return state;
   }
@@ -118,7 +135,6 @@ export const loadSchoolsByCategory = (categoryId) => {
 export const removeSchool = (id) => {
   return async (dispatch) => {
     dispatch({ type: "school/remove-by-id/pending" });
-
     try {
       await fetch(`/school/${id}`, {
         method: "DELETE",
@@ -129,6 +145,46 @@ export const removeSchool = (id) => {
     }
   };
 };
+
+export const addSchool = ({
+  name,
+  category,
+  logo,
+  rating,
+  onlineOption,
+  price,
+  description,
+  location,
+  term}) => {
+  return async (dispatch) => {
+    dispatch({ type: 'school/add/pending'})
+
+    try {
+      const response = await fetch('/school', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: name,
+          category: category,
+          logo: logo,
+          rating: rating,
+          onlineOption: onlineOption,
+          price: price,
+          description: description,
+          location: location,
+          term: term
+        }),
+        headers: {
+          "Content-type" : "application/json; charset=UTF-8",
+        }
+      })
+      const data = await response.json();
+
+      dispatch({ type: 'school/add/fulfilled', payload: data})
+    } catch (e) {
+      dispatch({ type: 'school/add/rejected', error: e.toString()})
+    }
+  }
+}
 
 export const selectSchoolsLoading = (state) => state.schools.loading;
 

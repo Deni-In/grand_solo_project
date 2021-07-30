@@ -118,7 +118,7 @@ module.exports.schoolsController = {
     }
 
     try {
-      const school = School.create({
+      const school = await School.create({
         name,
         category,
         logo,
@@ -130,7 +130,9 @@ module.exports.schoolsController = {
         term,
       });
 
-      return res.json(school);
+      const schoolToRes = await School.findById(school._id).populate('category')
+
+      return res.json(schoolToRes);
     } catch (e) {
       return res.status(400).json({
         error: e.toString(),
