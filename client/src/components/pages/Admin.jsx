@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addCategory,
   loadAllCategories,
   removeCategory,
   selectAllCategories,
@@ -20,6 +21,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,6 +52,8 @@ function Admin(props) {
     dispatch(removeCategory(categoryId));
   };
 
+  const [name, setName] = useState("");
+
   useEffect(() => {
     dispatch(loadAllSchools());
   }, [dispatch]);
@@ -57,6 +61,16 @@ function Admin(props) {
   useEffect(() => {
     dispatch(loadAllCategories());
   }, [dispatch]);
+
+  const saveName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleAddName = () => {
+    dispatch(addCategory({ name }));
+
+    setName("");
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -66,6 +80,19 @@ function Admin(props) {
             <TableCell>Категории</TableCell>
           </TableRow>
           <TableBody>
+            <TableRow>
+              <TableCell>
+                <TextField
+                  placeholder="название категории"
+                  label="название категории"
+                  onChange={saveName}
+                  value={name}
+                />
+              </TableCell>
+              <TableCell>
+                <Button onClick={handleAddName}>Добавить</Button>
+              </TableCell>
+            </TableRow>
             {categories.map((category) => (
               <TableRow key={category.name}>
                 <TableCell>{category.name}</TableCell>
