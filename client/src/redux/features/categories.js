@@ -1,6 +1,7 @@
 const initialState = {
   loading: false,
   items: [],
+  editingCategory: {}
 };
 
 const categories = (state = initialState, action) => {
@@ -46,6 +47,36 @@ const categories = (state = initialState, action) => {
         items: [...state.items, action.payload],
       };
     case "category/add/rejected":
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case 'categories/set-editing-category':
+      return {
+        ...state,
+        editingCategory: action.payload
+      }
+    case 'category/edit/pending':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'category/edit/fulfilled':
+      return {
+        ...state,
+        loading: false,
+        items: state.items.map((category) => {
+          if (category._id === action.payload.id) {
+            return {
+              ...category,
+              ...action.payload.data
+            }
+          }
+          return category
+        })
+      }
+    case "category/edit/rejected":
       return {
         ...state,
         loading: false,
@@ -114,4 +145,32 @@ export const addCategory = (categoryName) => {
   };
 };
 
+export const setEditingCategory = (category) => {
+  return{
+    type: 'categories/set-editing-category',
+    payload: category
+  }
+}
+
+export const editCategory = (id, data) => {
+  return async (dispatch) => {
+    dispatch({type: 'category/edit/pending'})
+
+    try {
+      const response = await fetch(`/category/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      });
+      dispatch({ type: 'category/edit/fulfilled', payload: { id, data }})
+    } catch (e) {
+      dispatch({ type: 'category/edit/rejected', error: e.toString() })
+    }
+  }
+}
+
 export const selectAllCategories = (state) => state.categories.items;
+
+export const selectEditingCategory = (state) => state.categories.editingCategory

@@ -86,7 +86,7 @@ module.exports.categoriesController = {
     }
 
     try {
-      const edited = await Category.findByIdAndUpdate(id, { name });
+      const edited = await Category.findByIdAndUpdate(id, { name }, {new: true});
 
       if (!edited) {
         return res.status(400).json({

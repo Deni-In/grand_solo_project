@@ -4,7 +4,7 @@ import {
   addCategory,
   loadAllCategories,
   removeCategory,
-  selectAllCategories,
+  selectAllCategories, setEditingCategory,
 } from "../../redux/features/categories";
 import {
   addSchool,
@@ -13,7 +13,7 @@ import {
   selectAllSchools,
 } from "../../redux/features/schools";
 import {
-  Button,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   makeStyles,
   Paper,
   Table,
@@ -24,6 +24,7 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
+import EditCategoryDialog from '../EditCategoryDialog';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -124,6 +125,17 @@ function Admin() {
     }) )
   }
 
+  //======================================================
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = (category) => {
+    dispatch(setEditingCategory(category))
+    setOpen(true);
+  };
+
+
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -150,7 +162,7 @@ function Admin() {
                 <TableCell>{category.name}</TableCell>
                 <TableCell>ID: {category._id}</TableCell>
                 <TableCell align="right">
-                  <Button>Изменить</Button>
+                  <Button onClick={() => handleClickOpen(category)}>Изменить</Button>
                   <Button
                     onClick={() => {
                       handleRemoveCategory(category._id);
@@ -161,6 +173,7 @@ function Admin() {
                 </TableCell>
               </TableRow>
             ))}
+            <EditCategoryDialog setOpen={setOpen} open={open}/>
           </TableBody>
           <TableRow>
             <TableCell>Школа</TableCell>
