@@ -10,7 +10,7 @@ import {
   addSchool,
   loadAllSchools,
   removeSchool,
-  selectAllSchools,
+  selectAllSchools, setEditingSchool,
 } from "../../redux/features/schools";
 import {
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
@@ -25,6 +25,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import EditCategoryDialog from '../EditCategoryDialog';
+import EditSchoolDialog from '../EditSchoolDialog';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -129,12 +130,17 @@ function Admin() {
 
   const [open, setOpen] = useState(false);
 
+  const [schoolOpen, setSchoolOpen] = useState(false)
+
   const handleClickOpen = (category) => {
     dispatch(setEditingCategory(category))
     setOpen(true);
   };
 
-
+  const handleClickOpenSchool = (school) => {
+    dispatch(setEditingSchool(school))
+    setSchoolOpen(true);
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -292,7 +298,7 @@ function Admin() {
               <TableCell align="right">{school.createdAt}</TableCell>
               <TableCell align="right">{school.updatedAt}</TableCell>
               <TableCell align="right">
-                <Button>Изменить</Button>
+                <Button onClick={() => handleClickOpenSchool(school)}>Изменить</Button>
                 <Button
                   onClick={() => {
                     handleRemoveSchool(school._id);
@@ -303,6 +309,7 @@ function Admin() {
               </TableCell>
             </TableRow>
           ))}
+          <EditSchoolDialog setSchoolOpen={setSchoolOpen} schoolOpen={schoolOpen}/>
         </TableBody>
       </Table>
     </TableContainer>

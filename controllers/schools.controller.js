@@ -189,7 +189,7 @@ module.exports.schoolsController = {
         description,
         location,
         term,
-      });
+      }, { new: true});
     } catch (e) {
       return res.status(400).json({
         error: e.toString(),

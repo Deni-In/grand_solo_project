@@ -1,6 +1,7 @@
 const initialState = {
   loading: false,
   items: [],
+  editingSchool: {}
 };
 
 const schools = (state = initialState, action) => {
@@ -68,6 +69,36 @@ const schools = (state = initialState, action) => {
         loading: false,
         error: action.error
       }
+    case 'schools/set-editing-school':
+      return {
+        ...state,
+        editingSchool: action.payload
+      }
+    case 'school/edit/pending':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'school/edit/fulfilled':
+      return {
+        ...state,
+        loading: false,
+        items: state.items.map((school) => {
+          if (school._id === action.payload.id) {
+            return {
+              ...school,
+              ...action.payload.data
+            }
+          }
+          return school
+        })
+      }
+    case "school/edit/rejected":
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }
@@ -186,6 +217,32 @@ export const addSchool = ({
   }
 }
 
+export const setEditingSchool = (school) => {
+  return{
+    type: 'schools/set-editing-category',
+    payload: school
+  }
+}
+
+export const editSchool = (id, data) => {
+  return async (dispatch) => {
+    dispatch({ type: 'school/edit/pending'})
+
+    try {
+      const response = await fetch(`/school/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      });
+      dispatch({ type: 'school/edit/fulfilled', payload: { id, data }})
+    } catch (e) {
+      dispatch({ type: 'school/edit/rejected', error: e.toString() })
+    }
+  }
+}
+
 export const selectSchoolsLoading = (state) => state.schools.loading;
 
 export const selectAllSchools = (state) => state.schools.items;
@@ -197,3 +254,5 @@ export const selectSingleSchool = (schoolId) => (state) => {
 export const selectSchoolByCategory = (categoryId) => (state) => {
   return state.schools.items.filter((school) => school.category === categoryId);
 };
+
+export const selectEditingSchool = (state) => state.schools.editingSchool

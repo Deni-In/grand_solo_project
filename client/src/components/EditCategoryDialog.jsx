@@ -13,6 +13,10 @@ import { editCategory, selectEditingCategory } from '../redux/features/categorie
 function EditCategoryDialog({ setOpen, open }) {
   const dispatch = useDispatch()
 
+  const editingCategory = useSelector(selectEditingCategory)
+
+  const [name, setName] = useState(editingCategory.name)
+
   const handleClose = (id) => {
     dispatch(editCategory(id, {name}))
     setOpen(false)
@@ -21,10 +25,6 @@ function EditCategoryDialog({ setOpen, open }) {
   const handleEditNameCategory = (e) => {
     setName(e.target.value)
   }
-
-  const editingCategory = useSelector(selectEditingCategory)
-
-  const [name, setName] = useState(editingCategory.name)
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -35,7 +35,6 @@ function EditCategoryDialog({ setOpen, open }) {
         </DialogContentText>
         <TextField
           autoFocus
-          value={name}
           margin="dense"
           id="name"
           label="Название категории"
