@@ -1,7 +1,7 @@
 const initialState = {
   loading: false,
   items: [],
-  editingSchool: {}
+  editingSchool: {},
 };
 
 const schools = (state = initialState, action) => {
@@ -52,52 +52,59 @@ const schools = (state = initialState, action) => {
           return school._id !== action.payload;
         }),
       };
-    case 'school/add/pending':
+    case "school/add/pending":
       return {
         ...state,
-        loading: true
-      }
-    case 'school/add/fulfilled':
-      return {
-        ...state,
-        loading: false,
-        items: [ ...state.items, action.payload]
-      }
-    case 'school/add/rejected':
+        loading: true,
+      };
+    case "school/add/fulfilled":
       return {
         ...state,
         loading: false,
-        error: action.error
-      }
-    case 'schools/set-editing-school':
+        items: [...state.items, action.payload],
+      };
+    case "school/add/rejected":
       return {
         ...state,
-        editingSchool: action.payload
-      }
-    case 'school/edit/pending':
+        loading: false,
+        error: action.error,
+      };
+    case "schools/set-editing-school":
       return {
         ...state,
-        loading: true
-      }
-    case 'school/edit/fulfilled':
+        editingSchool: action.payload,
+      };
+    case "school/edit/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "school/edit/fulfilled":
       return {
         ...state,
         loading: false,
         items: state.items.map((school) => {
-          if (school._id === action.payload.id) {
+          if (school._id === state.editingSchool._id) {
             return {
               ...school,
-              ...action.payload.data
-            }
+              ...state.editingSchool,
+            };
           }
-          return school
-        })
-      }
+          return school;
+        }),
+      };
     case "school/edit/rejected":
       return {
         ...state,
         loading: false,
         error: action.error,
+      };
+    case "set/patch/name":
+      return {
+        ...state,
+        editingSchool: {
+          name: action.payload,
+        },
       };
     default:
       return state;
@@ -186,13 +193,14 @@ export const addSchool = ({
   price,
   description,
   location,
-  term}) => {
+  term,
+}) => {
   return async (dispatch) => {
-    dispatch({ type: 'school/add/pending'})
+    dispatch({ type: "school/add/pending" });
 
     try {
-      const response = await fetch('/school', {
-        method: 'POST',
+      const response = await fetch("/school", {
+        method: "POST",
         body: JSON.stringify({
           name: name,
           category: category,
@@ -202,46 +210,58 @@ export const addSchool = ({
           price: price,
           description: description,
           location: location,
-          term: term
+          term: term,
         }),
         headers: {
-          "Content-type" : "application/json; charset=UTF-8",
-        }
-      })
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
       const data = await response.json();
 
-      dispatch({ type: 'school/add/fulfilled', payload: data})
+      dispatch({ type: "school/add/fulfilled", payload: data });
     } catch (e) {
-      dispatch({ type: 'school/add/rejected', error: e.toString()})
+      dispatch({ type: "school/add/rejected", error: e.toString() });
     }
-  }
-}
+  };
+};
 
 export const setEditingSchool = (school) => {
-  return{
-    type: 'schools/set-editing-category',
-    payload: school
-  }
-}
+  return {
+    type: "schools/set-editing-school",
+    payload: school,
+  };
+};
 
-export const editSchool = (id, data) => {
-  return async (dispatch) => {
-    dispatch({ type: 'school/edit/pending'})
+export const editSchool = (id) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: "school/edit/pending" });
+
+    const { schools } = getState();
 
     try {
-      const response = await fetch(`/school/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(data),
+      const response = await fetch(`/school/${schools.editingSchool._id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          name: schools.editingSchool.name,
+          category: schools.editingSchool.category,
+          logo: schools.editingSchool.logo,
+          rating: schools.editingSchool.rating,
+          onlineOption: schools.editingSchool.onlineOption,
+          price: schools.editingSchool.price,
+          description: schools.editingSchool.description,
+          location: schools.editingSchool.location,
+          term: schools.editingSchool.term,
+        }),
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
+          "Content-type": "application/json; charset=UTF-8",
+        },
       });
-      dispatch({ type: 'school/edit/fulfilled', payload: { id, data }})
+      dispatch({ type: "school/edit/fulfilled" });
     } catch (e) {
-      dispatch({ type: 'school/edit/rejected', error: e.toString() })
+      dispatch({ type: "school/edit/rejected", error: e.toString() });
     }
-  }
-}
+  };
+};
 
 export const selectSchoolsLoading = (state) => state.schools.loading;
 
@@ -255,4 +275,4 @@ export const selectSchoolByCategory = (categoryId) => (state) => {
   return state.schools.items.filter((school) => school.category === categoryId);
 };
 
-export const selectEditingSchool = (state) => state.schools.editingSchool
+export const selectEditingSchool = (state) => state.schools.editingSchool;

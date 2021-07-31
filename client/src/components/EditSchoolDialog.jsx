@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editCategory, selectEditingCategory } from '../redux/features/categories';
 import { editSchool, selectEditingSchool } from '../redux/features/schools';
 import {
   Button, Dialog,
@@ -50,7 +49,7 @@ function EditSchoolDialog({ setSchoolOpen, schoolOpen }) {
   }
 
   const handleEditNameSchool = (e) => {
-    setName(e.target.value)
+    dispatch({ type: 'set/patch/name', payload: e.target.value})
   }
 
   const handleEditCategorySchool = (e) => {
@@ -93,84 +92,66 @@ function EditSchoolDialog({ setSchoolOpen, schoolOpen }) {
           Введите изменения в нужные поля
         </DialogContentText>
         <TextField
-          autoFocus
-          value={name}
+          value={editingSchool.name}
           margin="dense"
-          id="name"
           label="Название"
-          type="email"
+          type="text"
           onChange={handleEditNameSchool}
         />
         <TextField
-          autoFocus
-          value={category}
+          value={editingSchool.category}
           margin="dense"
-          id="name"
           label="Категория"
-          type="email"
+          type="text"
           onChange={handleEditCategorySchool}
         />
         <TextField
-          autoFocus
-          value={logo}
+          value={editingSchool.logo}
           margin="dense"
-          id="name"
           label="Ссылка лого"
-          type="email"
+          type="text"
           onChange={handleEditLogoSchool}
         />
         <TextField
-          autoFocus
-          value={rating}
+          value={editingSchool.rating}
           margin="dense"
-          id="name"
           label="Рейтинг"
-          type="email"
+          type="text"
           onChange={handleEditRatingSchool}
         />
         <TextField
-          autoFocus
-          value={onlineOption}
+          value={editingSchool.onlineOption}
           margin="dense"
-          id="name"
           label="Онлайн true/false"
-          type="email"
+          type="text"
           onChange={handleEditOnlineOptionSchool}
         />
         <TextField
-          autoFocus
-          value={price}
+          value={editingSchool.price}
           margin="dense"
-          id="name"
           label="Цена"
-          type="email"
+          type="text"
           onChange={handleEditPriceSchool}
         />
         <TextField
-          autoFocus
-          value={description}
+          value={editingSchool.description}
           margin="dense"
-          id="name"
           label="Описание"
-          type="email"
+          type="text"
           onChange={handleEditDescriptionSchool}
         />
         <TextField
-          autoFocus
-          value={location}
+          value={editingSchool.location}
           margin="dense"
-          id="name"
           label="Город"
-          type="email"
+          type="text"
           onChange={handleEditLocationSchool}
         />
         <TextField
-          autoFocus
-          value={term}
+          value={editingSchool.term}
           margin="dense"
-          id="name"
           label="Месяцев"
-          type="email"
+          type="text"
           onChange={handleEditTermSchool}
         />
       </DialogContent>

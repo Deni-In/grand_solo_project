@@ -13,7 +13,7 @@ import {
   selectAllSchools, setEditingSchool,
 } from "../../redux/features/schools";
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button,
   makeStyles,
   Paper,
   Table,
