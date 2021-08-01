@@ -49,7 +49,7 @@ function EditSchoolDialog({ setSchoolOpen, schoolOpen }) {
   }
 
   const handleEditNameSchool = (e) => {
-    dispatch({ type: 'set/patch/name', payload: e.target.value})
+    setName(e.target.value)
   }
 
   const handleEditCategorySchool = (e) => {
@@ -92,63 +92,54 @@ function EditSchoolDialog({ setSchoolOpen, schoolOpen }) {
           Введите изменения в нужные поля
         </DialogContentText>
         <TextField
-          value={editingSchool.name}
           margin="dense"
           label="Название"
           type="text"
           onChange={handleEditNameSchool}
         />
         <TextField
-          value={editingSchool.category}
           margin="dense"
           label="Категория"
           type="text"
           onChange={handleEditCategorySchool}
         />
         <TextField
-          value={editingSchool.logo}
           margin="dense"
           label="Ссылка лого"
           type="text"
           onChange={handleEditLogoSchool}
         />
         <TextField
-          value={editingSchool.rating}
           margin="dense"
           label="Рейтинг"
           type="text"
           onChange={handleEditRatingSchool}
         />
         <TextField
-          value={editingSchool.onlineOption}
           margin="dense"
           label="Онлайн true/false"
           type="text"
           onChange={handleEditOnlineOptionSchool}
         />
         <TextField
-          value={editingSchool.price}
           margin="dense"
           label="Цена"
           type="text"
           onChange={handleEditPriceSchool}
         />
         <TextField
-          value={editingSchool.description}
           margin="dense"
           label="Описание"
           type="text"
           onChange={handleEditDescriptionSchool}
         />
         <TextField
-          value={editingSchool.location}
           margin="dense"
           label="Город"
           type="text"
           onChange={handleEditLocationSchool}
         />
         <TextField
-          value={editingSchool.term}
           margin="dense"
           label="Месяцев"
           type="text"

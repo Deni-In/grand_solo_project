@@ -85,10 +85,10 @@ const schools = (state = initialState, action) => {
         ...state,
         loading: false,
         items: state.items.map((school) => {
-          if (school._id === state.editingSchool._id) {
+          if (school._id === action.payload.id) {
             return {
               ...school,
-              ...state.editingSchool,
+              ...action.payload.data,
             };
           }
           return school;
@@ -107,6 +107,13 @@ const schools = (state = initialState, action) => {
           name: action.payload,
         },
       };
+    case "set/patch/id" :
+      return {
+        ...state,
+        editingSchool: {
+          _id: action.payload
+        }
+      }
     case "compare/school/add":
       return {
         ...state,
@@ -248,31 +255,21 @@ export const setEditingSchool = (school) => {
   };
 };
 
-export const editSchool = (id) => {
+export const editSchool = (id, data) => {
   return async (dispatch, getState) => {
     dispatch({ type: "school/edit/pending" });
 
     const { schools } = getState();
 
     try {
-      const response = await fetch(`/school/${schools.editingSchool._id}`, {
+      await fetch(`/school/${id}`, {
         method: "PATCH",
-        body: JSON.stringify({
-          name: schools.editingSchool.name,
-          category: schools.editingSchool.category,
-          logo: schools.editingSchool.logo,
-          rating: schools.editingSchool.rating,
-          onlineOption: schools.editingSchool.onlineOption,
-          price: schools.editingSchool.price,
-          description: schools.editingSchool.description,
-          location: schools.editingSchool.location,
-          term: schools.editingSchool.term,
-        }),
+        body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
-      dispatch({ type: "school/edit/fulfilled" });
+      dispatch({ type: "school/edit/fulfilled", payload: {id, data} });
     } catch (e) {
       dispatch({ type: "school/edit/rejected", error: e.toString() });
     }

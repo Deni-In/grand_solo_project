@@ -165,35 +165,46 @@ module.exports.schoolsController = {
   },
 
   editSchool: async (req, res) => {
-    const { id } = req.params;
-    const {
-      name,
-      category,
-      logo,
-      rating,
-      onlineOption,
-      price,
-      description,
-      location,
-      term,
-    } = req.body;
+  //   const { id } = req.params;
+  //   const {
+  //     name,
+  //     category,
+  //     logo,
+  //     rating,
+  //     onlineOption,
+  //     price,
+  //     description,
+  //     location,
+  //     term,
+  //   } = req.body;
+  //
+  //   try {
+  //     const edited = await School.findByIdAndUpdate(id, {
+  //       name,
+  //       category,
+  //       logo,
+  //       rating,
+  //       onlineOption,
+  //       price,
+  //       description,
+  //       location,
+  //       term,
+  //     }, { new: true});
+  //   } catch (e) {
+  //     return res.status(400).json({
+  //       error: e.toString(),
+  //     });
+  //   }
+  // },
+    const school = await School.findByIdAndUpdate(req.params.id, {
+      $set: {
+        ...req.body
+      }
+    })
 
-    try {
-      const edited = await School.findByIdAndUpdate(id, {
-        name,
-        category,
-        logo,
-        rating,
-        onlineOption,
-        price,
-        description,
-        location,
-        term,
-      }, { new: true});
-    } catch (e) {
-      return res.status(400).json({
-        error: e.toString(),
-      });
-    }
-  },
-};
+    const schoolNeeded = await School.findById(req.params.id).populate(
+      "category"
+    )
+    res.json(schoolNeeded)
+}
+}

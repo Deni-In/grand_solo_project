@@ -140,6 +140,7 @@ function Admin() {
   const handleClickOpenSchool = (school) => {
     dispatch(setEditingSchool(school))
     setSchoolOpen(true);
+
   };
 
   const loading = useSelector(selectSchoolsLoading);
@@ -291,7 +292,7 @@ function Admin() {
               <TableCell component="th" scope="row">
                 {school.name}
               </TableCell>
-              <TableCell align="right">{school.category.name}</TableCell>
+              <TableCell align="right">{school.category?.name}</TableCell>
               <TableCell align="right">{school.logo}</TableCell>
               <TableCell align="right">{school.rating}</TableCell>
               <TableCell align="right">
