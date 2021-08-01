@@ -29,6 +29,7 @@ function Schools() {
             id={school._id}
             logo={school.logo}
             category={school.category._id}
+            school={school}
           />
         );
       })}

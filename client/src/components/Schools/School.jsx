@@ -10,6 +10,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { selectComparingSpace } from '../../redux/features/schools';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -26,7 +28,11 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-function School({ id, name, category, logo }) {
+function School({ id, name, category, logo, school }) {
+
+  const dispatch = useDispatch()
+
+  const comparingSpace = useSelector(selectComparingSpace)
   const classes = useStyles();
 
   const history = useHistory();
@@ -34,6 +40,14 @@ function School({ id, name, category, logo }) {
   const handleOpenSchoolPage = () => {
     history.push(`/school/${id}`);
   };
+
+  const handleCompare = (school) => {
+    if (comparingSpace.length < 2) {
+      dispatch({ type: "compare/school/add", payload: school})
+    } else {
+      alert("Уже выбрано 2 школы!")
+    }
+  }
 
   return (
     <Box classes={{ root: classes.root }}>
@@ -58,6 +72,9 @@ function School({ id, name, category, logo }) {
         <CardActions>
           <Button color="primary" onClick={handleOpenSchoolPage}>
             Перейти
+          </Button>
+          <Button color="primary" variant="contained" onClick={() => handleCompare(school)}>
+            Сравнить
           </Button>
         </CardActions>
       </Card>

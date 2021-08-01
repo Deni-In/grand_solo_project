@@ -166,6 +166,9 @@ function Admin() {
                 />
               </TableCell>
               <TableCell>
+                {' '}
+              </TableCell>
+              <TableCell>
                 <Button onClick={handleAddName}>Добавить</Button>
               </TableCell>
             </TableRow>
@@ -187,20 +190,6 @@ function Admin() {
             ))}
             <EditCategoryDialog setOpen={setOpen} open={open}/>
           </TableBody>
-          <TableRow>
-            <TableCell>Школа</TableCell>
-            <TableCell align="right">Категория</TableCell>
-            <TableCell align="right">Лого</TableCell>
-            <TableCell align="right">Рейтинг</TableCell>
-            <TableCell align="right">Онлайн</TableCell>
-            <TableCell align="right">Цена</TableCell>
-            <TableCell align="right">Описание</TableCell>
-            <TableCell align="right">Локация</TableCell>
-            <TableCell align="right">Срок(месяцев)</TableCell>
-            <TableCell align="right">Добавлено</TableCell>
-            <TableCell align="right">Изменено</TableCell>
-            <TableCell align="right">Инструменты</TableCell>
-          </TableRow>
         </TableHead>
         <TableBody>
           <TableRow>
@@ -279,12 +268,22 @@ function Admin() {
             <TableCell align="right">
               {' '}
             </TableCell>
-            <TableCell align="right">
-              {' '}
-            </TableCell>
             <TableCell>
               <Button onClick={handleAddSchool}>Добавить</Button>
             </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell style={{width:50}}>Школа</TableCell>
+            <TableCell align="right">Категория</TableCell>
+            <TableCell align="right">Лого</TableCell>
+            <TableCell align="right">Рейтинг</TableCell>
+            <TableCell align="right">Онлайн</TableCell>
+            <TableCell align="right">Цена</TableCell>
+            <TableCell align="right">Локация</TableCell>
+            <TableCell align="right">Срок(месяцев)</TableCell>
+            <TableCell align="right">Добавлено</TableCell>
+            <TableCell align="right">Изменено</TableCell>
+            <TableCell align="right">Инструменты</TableCell>
           </TableRow>
           {schools.map((school) => (
             <TableRow key={school.name}>
@@ -292,13 +291,12 @@ function Admin() {
                 {school.name}
               </TableCell>
               <TableCell align="right">{school.category?.name}</TableCell>
-              <TableCell align="right">{school.logo}</TableCell>
+              <TableCell align="right"><img src={school.logo} style={{ width: 80}}/></TableCell>
               <TableCell align="right">{school.rating}</TableCell>
               <TableCell align="right">
                 {school.onlineOption ? "Есть" : "Нет"}
               </TableCell>
               <TableCell align="right">{school.price}</TableCell>
-              <TableCell align="right">{school.description}</TableCell>
               <TableCell align="right">{school.location}</TableCell>
               <TableCell align="right">{school.term}</TableCell>
               <TableCell align="right">{school.createdAt}</TableCell>

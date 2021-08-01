@@ -53,6 +53,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.name}
           name="name"
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -61,6 +62,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.category?._id}
           name="category"
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -69,7 +71,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.logo}
           name="logo"
-
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -78,7 +80,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.rating}
           name="rating"
-
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -87,7 +89,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.onlineOption}
           name="onlineOption"
-
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -96,7 +98,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.price}
           name="price"
-
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -105,7 +107,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.description}
           name="description"
-
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -114,7 +116,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.location}
           name="location"
-
+          fullWidth
         />
         <TextField
           margin="dense"
@@ -123,6 +125,7 @@ function EditSchoolDialog() {
           onChange={handleEdit}
           value={editingSchool.term}
           name="term"
+          fullWidth
          />
       </DialogContent>
       <DialogActions>

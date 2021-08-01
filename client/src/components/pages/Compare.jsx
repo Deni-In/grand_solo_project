@@ -7,7 +7,6 @@ import {
     makeStyles,
     Paper,
     Table,
-    TableBody,
     TableCell,
     TableContainer,
     TableHead,
@@ -23,14 +22,6 @@ const useStyles = makeStyles({
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 function Compare(props) {
 
@@ -49,39 +40,128 @@ function Compare(props) {
     const handleRemoveFromSpace = (school) => {
         dispatch({ type: 'compare/school/remove', payload: school})
     }
+    if (comparingSpace.length < 2) {
+        return (
+          <div>
+              <h1>
+                  Выберите 2 школы
+              </h1>
+          </div>
+        )
+    } else {
+        return (
+          <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                      <TableRow>
+                          <TableCell style={{ width: 100}}>
+                              <TableRow>
+                                  <TableCell>Название</TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>Категория</TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>Цена</TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>Срок</TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>Город</TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>Онлайн</TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell><Button>Удалить</Button></TableCell>
+                              </TableRow>
+                          </TableCell>
+                          <TableCell style={{ width: 100}}>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[0].name}
+                                  </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[0].category?.name}
+                                  </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[0].price}
+                                  </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[0].term}
+                                  </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[0].location}
+                                  </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[0].onlineOption ? "Да" : "Нет"}
+                                  </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      <Button onClick={() => handleRemoveFromSpace(comparingSpace[0])}>X</Button>
+                                  </TableCell>
+                              </TableRow>
+                          </TableCell>
+                          <TableCell style={{ width: 100}}>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[1].name}
+                                  </TableCell>
 
-    return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Название</TableCell>
-                        <TableCell align="right">Категория</TableCell>
-                        <TableCell align="right">Цена</TableCell>
-                        <TableCell align="right">Срок</TableCell>
-                        <TableCell align="right">Город</TableCell>
-                        <TableCell align="right">Онлайн</TableCell>
-                        <TableCell align="right">Удалить</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {comparingSpace.map((school) => (
-                        <TableRow key={school.name}>
-                            <TableCell component="th" scope="row">
-                                {school.name}
-                            </TableCell>
-                            <TableCell align="right">{school.category.name}</TableCell>
-                            <TableCell align="right">{school.price}</TableCell>
-                            <TableCell align="right">{school.term}</TableCell>
-                            <TableCell align="right">{school.location}</TableCell>
-                            <TableCell align="right">{school.onlineOption ? 'Да' : 'Нет'}</TableCell>
-                            <TableCell align="right"><Button onClick={() => handleRemoveFromSpace(school)}>X</Button></TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[1]?.category?.name}
+                                  </TableCell>
+
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[1].price}
+                                  </TableCell>
+
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[1].term}
+                                  </TableCell>
+
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[1].location}
+                                  </TableCell>
+
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      {comparingSpace[1].onlineOption ? "Да" : "Нет"}
+                                  </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                  <TableCell>
+                                      <Button onClick={() => handleRemoveFromSpace(comparingSpace[1])}>X</Button>
+                                  </TableCell>
+                              </TableRow>
+                          </TableCell>
+                      </TableRow>
+                  </TableHead>
+              </Table>
+          </TableContainer>
+        );
+    }
 }
 
 export default Compare;

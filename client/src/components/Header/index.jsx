@@ -51,7 +51,7 @@ function Header({ isOpen }) {
 
   return (
     <>
-      <AppBar position="static" style={{ background: "black" }}>
+      <AppBar position="fixed" style={{ background: "black" }}>
         <Toolbar variant="dense">
           <IconButton
             onClick={handleClick}
