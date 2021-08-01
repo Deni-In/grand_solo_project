@@ -10,10 +10,10 @@ import {
   addSchool,
   loadAllSchools,
   removeSchool,
-  selectAllSchools, setEditingSchool,
+  selectAllSchools, selectSchoolsLoading, setEditingSchool,
 } from "../../redux/features/schools";
 import {
-  Button,
+  Button, CircularProgress,
   makeStyles,
   Paper,
   Table,
@@ -141,6 +141,12 @@ function Admin() {
     dispatch(setEditingSchool(school))
     setSchoolOpen(true);
   };
+
+  const loading = useSelector(selectSchoolsLoading);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
 
   return (
     <TableContainer component={Paper}>

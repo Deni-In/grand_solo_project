@@ -97,7 +97,7 @@ function Header({ isOpen }) {
           </Button>
           <Button>
             <NavLink
-              to="/admin"
+              to="/compare"
               style={{
                 textDecoration: "none",
                 color: "white",

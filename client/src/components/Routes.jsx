@@ -5,6 +5,7 @@ import SingleSchoolPage from "./pages/SingleSchoolPage";
 import SchoolsByCategoryPage from "./pages/SchoolsByCategoryPage";
 import Header from "./Header";
 import Admin from "./pages/Admin";
+import Compare from "./pages/Compare";
 
 function Routes(props) {
   return (
@@ -21,6 +22,9 @@ function Routes(props) {
       <Route path="/admin">
         <Admin />
       </Route>
+        <Route path="/compare">
+            <Compare/>
+        </Route>
       <Redirect to="/" />
     </Switch>
   );

@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, withRouter } from "react-router-dom";
 
 import {
-  loadSingleSchoolById,
+  loadSingleSchoolById, selectComparingSpace,
   selectSchoolsLoading,
   selectSingleSchool,
 } from "../../redux/features/schools";
@@ -59,6 +59,8 @@ function SingleSchoolPage(props) {
 
   const school = useSelector(selectSingleSchool(id));
 
+  const comparingSpace = useSelector(selectComparingSpace)
+
   const handleBack = () => {
     history.push("/");
   };
@@ -69,6 +71,14 @@ function SingleSchoolPage(props) {
 
   if (loading) {
     return <CircularProgress />;
+  }
+
+  const handleCompare = (school) => {
+    if (comparingSpace.length < 2) {
+      dispatch({ type: "compare/school/add", payload: school})
+    } else {
+      alert("Уже выбрано 2 школы!")
+    }
   }
   return (
     <>
@@ -91,7 +101,7 @@ function SingleSchoolPage(props) {
           <Button color="default" variant="contained" onClick={handleBack}>
             Вернуться назад
           </Button>
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" onClick={() => handleCompare(school)}>
             Сравнить
           </Button>
         </Box>

@@ -2,6 +2,7 @@ const initialState = {
   loading: false,
   items: [],
   editingSchool: {},
+  comparingSpace: []
 };
 
 const schools = (state = initialState, action) => {
@@ -106,6 +107,21 @@ const schools = (state = initialState, action) => {
           name: action.payload,
         },
       };
+    case "compare/school/add":
+      return {
+        ...state,
+        comparingSpace: [
+            ...state.comparingSpace,
+            action.payload
+        ]
+      }
+    case 'compare/school/remove':
+      return {
+        ...state,
+        comparingSpace: state.comparingSpace.filter((school) => {
+          return action.payload._id !== school._id
+        })
+      }
     default:
       return state;
   }
@@ -276,3 +292,5 @@ export const selectSchoolByCategory = (categoryId) => (state) => {
 };
 
 export const selectEditingSchool = (state) => state.schools.editingSchool;
+
+export const selectComparingSpace = (state) => state.schools.comparingSpace
