@@ -139,7 +139,6 @@ function Admin() {
 
   const handleClickOpenSchool = (school) => {
     dispatch(setEditingSchool(school))
-    setSchoolOpen(true);
 
   };
 

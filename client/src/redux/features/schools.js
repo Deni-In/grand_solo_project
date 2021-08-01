@@ -1,7 +1,7 @@
 const initialState = {
   loading: false,
   items: [],
-  editingSchool: {},
+  editingSchool: null,
   comparingSpace: []
 };
 
@@ -84,11 +84,12 @@ const schools = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        editingSchool: null,
         items: state.items.map((school) => {
-          if (school._id === action.payload.id) {
+          if (school._id === state.editingSchool._id) {
             return {
               ...school,
-              ...action.payload.data,
+              ...state.editingSchool,
             };
           }
           return school;
@@ -129,10 +130,47 @@ const schools = (state = initialState, action) => {
           return action.payload._id !== school._id
         })
       }
+
+    case 'set/field':
+      const e = action.payload;
+
+      if(e.target.name === "category") {
+        return {
+          ...state,
+          editingSchool: {
+            ...state.editingSchool,
+            category: {
+              ...state.editingSchool.category,
+              _id: e.target.value
+            }
+          }
+        }
+      }
+
+      return {
+        ...state,
+        editingSchool: {
+          ...state.editingSchool,
+          [e.target.name]: e.target.value
+        }
+      }
+
+    case 'close/dialog':
+      return {
+        ...state,
+        editingSchool: null
+      }
     default:
       return state;
   }
 };
+
+export const setFormFields = (e) => {
+  return {
+    type: "set/field",
+    payload: e
+  }
+}
 
 export default schools;
 
@@ -255,26 +293,32 @@ export const setEditingSchool = (school) => {
   };
 };
 
-export const editSchool = (id, data) => {
+export const editSchool = () => {
   return async (dispatch, getState) => {
     dispatch({ type: "school/edit/pending" });
 
-    const { schools } = getState();
+    const { schools  } = getState();
 
     try {
-      await fetch(`/school/${id}`, {
+      await fetch(`/school/${schools.editingSchool._id}`, {
         method: "PATCH",
-        body: JSON.stringify(data),
+        body: JSON.stringify(schools.editingSchool),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
-      dispatch({ type: "school/edit/fulfilled", payload: {id, data} });
+      dispatch({ type: "school/edit/fulfilled" });
     } catch (e) {
       dispatch({ type: "school/edit/rejected", error: e.toString() });
     }
   };
 };
+
+export const closeEditingDialog = () => {
+  return {
+    type: 'close/dialog'
+  }
+}
 
 export const selectSchoolsLoading = (state) => state.schools.loading;
 
