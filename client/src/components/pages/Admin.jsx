@@ -273,17 +273,17 @@ function Admin() {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell style={{width:50}}>Школа</TableCell>
-            <TableCell align="right">Категория</TableCell>
-            <TableCell align="right">Лого</TableCell>
-            <TableCell align="right">Рейтинг</TableCell>
-            <TableCell align="right">Онлайн</TableCell>
-            <TableCell align="right">Цена</TableCell>
-            <TableCell align="right">Локация</TableCell>
-            <TableCell align="right">Срок(месяцев)</TableCell>
-            <TableCell align="right">Добавлено</TableCell>
-            <TableCell align="right">Изменено</TableCell>
-            <TableCell align="right">Инструменты</TableCell>
+            <TableCell>Школа</TableCell>
+            <TableCell>Категория</TableCell>
+            <TableCell>Лого</TableCell>
+            <TableCell>Рейтинг</TableCell>
+            <TableCell>Онлайн</TableCell>
+            <TableCell>Цена</TableCell>
+            <TableCell>Локация</TableCell>
+            <TableCell>Срок(месяцев)</TableCell>
+            <TableCell>Добавлено</TableCell>
+            <TableCell>Изменено</TableCell>
+            <TableCell>Инструменты</TableCell>
           </TableRow>
           {schools.map((school) => (
             <TableRow key={school.name}>

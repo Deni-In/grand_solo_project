@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeEditingDialog,
@@ -20,7 +20,6 @@ function EditSchoolDialog() {
   const dispatch = useDispatch();
 
   const editingSchool = useSelector(selectEditingSchool);
-
   const handleClose = () => {
     dispatch(closeEditingDialog());
   };
