@@ -284,7 +284,7 @@ function Admin() {
             <TableCell>Добавлено</TableCell>
             <TableCell>Изменено</TableCell>
             <TableCell>Инструменты</TableCell>
-          </TableRow>
+          </TableRow> 
           {schools.map((school) => (
             <TableRow key={school.name}>
               <TableCell component="th" scope="row">
