@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
-  AppBar,
-  Button,
+  AppBar, Box,
+  Button, Container,
   IconButton,
   makeStyles,
   Menu,
@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "black",
   },
+  adminButton: {
+    flexGrow: 2,
+    marginRight: theme.spacing(2)
+  }
 }));
 
 function Header({ isOpen }) {
@@ -52,6 +56,7 @@ function Header({ isOpen }) {
   return (
     <>
       <AppBar position="fixed" style={{ background: "black" }}>
+        <Container fixed>
         <Toolbar variant="dense">
           <IconButton
             onClick={handleClick}
@@ -105,10 +110,11 @@ function Header({ isOpen }) {
                 marginTop: 1,
               }}
             >
-              Сравнение
+              Сравни
             </NavLink>
           </Button>
-          <Button>
+          <Box mr={3}>
+          <Button className={classes.adminButton}>
             <NavLink
               to="/admin"
               style={{
@@ -121,7 +127,9 @@ function Header({ isOpen }) {
               Админ
             </NavLink>
           </Button>
+          </Box>
         </Toolbar>
+        </Container>
       </AppBar>
       <Toolbar />
     </>

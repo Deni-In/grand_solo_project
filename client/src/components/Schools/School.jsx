@@ -52,13 +52,15 @@ function School({ id, name, category, logo, school }) {
   return (
     <Box classes={{ root: classes.root }}>
       <Card>
-        <div>
+        <div style={{ width: "80%",
+
+          margin: "auto", }}>
           <CardMedia
             component={"img"}
             classes={{ img: classes.media }}
             image={logo}
             title={name}
-            style={{ width: 300, height: 200 }}
+            style={{ width: "100%", maxHeight: "100%" }}
           />
         </div>
         <CardContent>

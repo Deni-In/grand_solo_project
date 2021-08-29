@@ -1,9 +1,8 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import AllSchoolsPage from "./pages/AllSchoolsPage";
 import SingleSchoolPage from "./pages/SingleSchoolPage";
 import SchoolsByCategoryPage from "./pages/SchoolsByCategoryPage";
-import Header from "./Header";
 import Admin from "./pages/Admin";
 import Compare from "./pages/Compare";
 
