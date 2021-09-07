@@ -5,7 +5,7 @@ import Header from "./Header";
 
 function App(props) {
   return (
-    <Container style={{maxWidth: 2000}}>
+    <Container style={{padding: 0}}>
       <CssBaseline>
         <Header isOpen={false} />
         <Routes />

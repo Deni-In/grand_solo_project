@@ -13,6 +13,7 @@ import {
   selectAllSchools, selectSchoolsLoading, setEditingSchool,
 } from "../../redux/features/schools";
 import {
+  Box,
   Button, CircularProgress,
   makeStyles,
   Paper,
@@ -145,11 +146,13 @@ function Admin() {
   const loading = useSelector(selectSchoolsLoading);
 
   if (loading) {
-    return <CircularProgress />;
+    return <Box style={{ textAlign: "center", marginTop: "10%" }}>
+      <CircularProgress />
+    </Box>
   }
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>

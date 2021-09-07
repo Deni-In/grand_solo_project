@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import {
-  AppBar, Box,
-  Button, Container,
+  AppBar,
+  Box,
+  Button,
+  Container,
   IconButton,
   makeStyles,
   Menu,
@@ -15,7 +17,7 @@ import {
   selectAllCategories,
 } from "../../redux/features/categories";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
   adminButton: {
     flexGrow: 2,
-    marginRight: theme.spacing(2)
-  }
+    marginRight: theme.spacing(2),
+  },
 }));
 
 function Header({ isOpen }) {
@@ -56,79 +58,79 @@ function Header({ isOpen }) {
   return (
     <>
       <AppBar position="fixed" style={{ background: "black" }}>
-        <Container fixed>
-        <Toolbar variant="dense">
-          <IconButton
-            onClick={handleClick}
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {categories.map((category) => {
-              return (
-                <MenuItem onClick={handleClose}>
-                  <NavLink
-                    className={classes.categoryBtn}
-                    to={`/category/${category._id}`}
-                  >
-                    {category.name}
-                  </NavLink>
-                </MenuItem>
-              );
-            })}
-          </Menu>
-          <Button>
-            <NavLink
-              to="/"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                fontSize: 17,
-                marginTop: 1,
-              }}
+        <Container maxWidth='xl'>
+          <Toolbar variant="dense">
+            <IconButton
+              onClick={handleClick}
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
             >
-              Главная
-            </NavLink>
-          </Button>
-          <Button>
-            <NavLink
-              to="/compare"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                fontSize: 17,
-                marginTop: 1,
-              }}
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
             >
-              Сравни
-            </NavLink>
-          </Button>
-          <Box mr={3}>
-          <Button className={classes.adminButton}>
-            <NavLink
-              to="/admin"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                fontSize: 17,
-                marginTop: 1,
-              }}
-            >
-              Админ
-            </NavLink>
-          </Button>
-          </Box>
-        </Toolbar>
+              {categories.map((category) => {
+                return (
+                  <MenuItem onClick={handleClose}>
+                    <NavLink
+                      className={classes.categoryBtn}
+                      to={`/category/${category._id}`}
+                    >
+                      {category.name}
+                    </NavLink>
+                  </MenuItem>
+                );
+              })}
+            </Menu>
+            <Button>
+              <NavLink
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: 17,
+                  marginTop: 1,
+                }}
+              >
+                Главная
+              </NavLink>
+            </Button>
+            <Button>
+              <NavLink
+                to="/compare"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: 17,
+                  marginTop: 1,
+                }}
+              >
+                Сравни
+              </NavLink>
+            </Button>
+            <Box mr={3}>
+              <Button className={classes.adminButton}>
+                <NavLink
+                  to="/admin"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    fontSize: 17,
+                    marginTop: 1,
+                  }}
+                >
+                  Админ
+                </NavLink>
+              </Button>
+            </Box>
+          </Toolbar>
         </Container>
       </AppBar>
       <Toolbar />

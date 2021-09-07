@@ -7,7 +7,7 @@ import {
   selectAllSchools,
   selectSchoolsLoading,
 } from "../../redux/features/schools";
-import { CircularProgress } from "@material-ui/core";
+import { Box, CircularProgress } from "@material-ui/core";
 import Schools from "../Schools";
 
 function SchoolsByCategoryPage(props) {
@@ -28,7 +28,9 @@ function SchoolsByCategoryPage(props) {
       <Helmet>
         <title>Школы категории</title>
       </Helmet>
-      {loading ? <CircularProgress /> : <Schools />}
+      {loading ? <Box style={{ textAlign: "center", marginTop: "10%" }}>
+        <CircularProgress />
+      </Box> : <Schools />}
     </>
   );
 }

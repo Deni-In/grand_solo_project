@@ -22,9 +22,8 @@ const useStyles = makeStyles((theme) => {
   return {
     imageBox: {
       textAlign: "center",
-
       "& img": {
-        width: "80%",
+        width: "50%",
       },
     },
 
@@ -86,15 +85,18 @@ function SingleSchoolPage(props) {
         <title> Страница школы {school.name}</title>
       </Helmet>
       <Paper variant="outlined">
-        <Typography className={classes.title} variant="h3">
-          {school.name}
-        </Typography>
         <Box className={classes.imageBox}>
           <img src={school.logo} alt={school.name} />
         </Box>
         <Divider />
+        <Typography variant="h3">
+          {school.name}
+        </Typography>
+        <Typography variant="h4">
+          ({school.category.name})
+        </Typography>
         <Typography variant="h6">
-          {school.category.name} / {school.name} / {school.description}
+          {school.description}
         </Typography>
         <Divider />
         <Box className={classes.actions}>
